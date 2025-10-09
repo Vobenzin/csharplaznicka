@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using ClassLibrary1.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Models;
 
@@ -11,6 +12,8 @@ namespace WebApplication1.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
+            UserEntity user = new UserEntity();
         }
 
         public IActionResult Index()

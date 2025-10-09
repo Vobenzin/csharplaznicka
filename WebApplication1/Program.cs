@@ -1,3 +1,7 @@
+using ClassLibrary1;
+using ClassLibrary1.Entities;
+using WebApplication1.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,5 +27,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using (var db = new AppDbContext())
+{
+    db.Database.EnsureCreated();
+}
 
 app.Run();
