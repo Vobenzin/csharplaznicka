@@ -1,0 +1,20 @@
+﻿using ClassLibrary1.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace biznis.Interfaces.Services
+{
+    public interface IUserService
+    {
+        Task<List<WebApplication1.Models.User>> GetAllAsync();
+        Task<UserEntity> GetByPublicIdAsync(Guid publicId);
+        Task<bool> CreateAsync(string name, string email);
+        Task<bool> UpdateAsync(Guid publicId, string name, string email);
+        Task<bool> DeleteAsync(Guid publicId);
+
+    }
+}

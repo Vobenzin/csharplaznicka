@@ -1,0 +1,25 @@
+﻿@using ClassLibrary1.Entities
+@model UserEntity
+
+<h1>Edit User</h1>
+
+<p>Name: @Model.Name</p>
+<p>Email: @Model.Email</p>
+
+<form asp-action="Edit" asp-controller="Home" method="post">
+    <label for="name">New name:</label>
+    <br />
+    <input id="name" name="name" />
+
+    <br />
+    <br />
+
+    <label for="email">New email:</label>
+    <br />
+    <input id="email" name="email" />
+
+    <br />
+    <br />
+
+    <button type="submit">submit</button>
+</form>

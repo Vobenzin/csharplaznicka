@@ -1,3 +1,5 @@
+using biznis.Interfaces.Services;
+using biznis.Services;
 using ClassLibrary1;
 using ClassLibrary1.Entities;
 using WebApplication1.Models;
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>();
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

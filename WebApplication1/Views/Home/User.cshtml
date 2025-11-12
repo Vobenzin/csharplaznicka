@@ -1,0 +1,60 @@
+﻿@using ClassLibrary1.Entities
+@model List<User>
+
+<style>
+    table, th{
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+
+<a asp-action="Form" asp-controller="Home">Add new user</a>
+
+<br />
+<br />
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Delete
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <th>
+                    @user.Name
+                </th>
+               <th>
+                   @user.Email
+               </th>
+               <th>
+                    <form asp-action="Delete" asp-controller="Home" method="post">
+                        <input type="hidden" name="userPublicId" value="@user.PublicId" />
+                        <button type="submit">Delete</button>
+                    </form>
+               </th>
+                <th>
+                    <form asp-action="EditForm" asp-controller="Home" method="post">
+                        <input type="hidden" name="userPublicId" value="@user.PublicId" />
+                        <button type="submit">Edit</button>
+                    </form>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
