@@ -7,6 +7,9 @@
 <p>Email: @Model.Email</p>
 
 <form asp-action="Edit" asp-controller="Home" method="post">
+
+    <input type="hidden" name="userPublicId" value="@Model.PublicId" />
+
     <label for="name">New name:</label>
     <br />
     <input id="name" name="name" />

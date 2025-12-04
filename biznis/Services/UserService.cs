@@ -1,4 +1,6 @@
-﻿using biznis.Interfaces.Services;
+﻿using biznis.Interfaces.Repository;
+using biznis.Interfaces.Services;
+using biznis.Repository;
 using ClassLibrary1;
 using ClassLibrary1.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -14,40 +16,43 @@ namespace biznis.Services
 {
     public class UserService : IUserService
     {
-        private readonly AppDbContext _context;
+        private readonly IUserRepository _userRepository;
 
 
-        public UserService(AppDbContext context) {  _context = context; }
+        public UserService(IUserRepository userRepository) {
+            _userRepository = userRepository; 
+        }
 
 
-        public Task<bool> CreateAsync(string name, string email)
+        public async Task<bool> CreateAsync(string name, string email)
         {
             var userEntity = new UserEntity()
             {
+                PublicId = Guid.NewGuid(),
                 Name = name,
                 Email = email
             };
-            _context.Users.Add(userEntity);
-            _context.SaveChanges();
-            return Task.FromResult(true);
+            await _userRepository.CreateAsync(userEntity);
+            await _userRepository.SaveChangesAsync();
+            return true;
         }
 
 
         public async Task<bool> DeleteAsync(Guid publicId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.PublicId == publicId);
+            var user = await _userRepository.GetByPublicIdAsync(publicId);
             if (user == null)
             {
                 return false;
             }
-            _context.Users.Remove(user);
-            _context.SaveChanges();
+            _userRepository.Delete(user);
+            await _userRepository.SaveChangesAsync();
             return true;
         }
 
         public async Task<List<User>> GetAllAsync()
         {
-            var userList = await _context.Users.ToListAsync();
+            var userList = await _userRepository.GetAllAsync();
             var userModelList = new List<User>();
 
             foreach (var user in userList)
@@ -64,30 +69,31 @@ namespace biznis.Services
             return userModelList;
         }
 
-        public async Task<UserEntity> GetByPublicIdAsync(Guid publicId)
+        public async Task<UserEntity?> GetByPublicIdAsync(Guid publicId)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.PublicId == publicId);
+            var user = await _userRepository.GetByPublicIdAsync(publicId);
             return user;
         }
 
 
-        public Task<bool> UpdateAsync(Guid publicId, string name, string email)
+        public async Task<bool> UpdateAsync(Guid publicId, string name, string email)
         {
-            var user = _context.Users.FirstOrDefault(u => u.PublicId == publicId);
+            var user = _userRepository.GetByPublicIdAsync(publicId).Result;
             if (user == null)
             {
-                return Task.FromResult(false);
+                return false;
             }
-            if (name != "")
+            if (name != "" && name != null)
             {
                 user.Name = name;
             }
-            if (email != "")
+            if (email != "" && email != null)
             {
                 user.Email = email;
             }
-            _context.SaveChanges();
-            return Task.FromResult(true);
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -1,4 +1,6 @@
+using biznis.Interfaces.Repository;
 using biznis.Interfaces.Services;
+using biznis.Repository;
 using biznis.Services;
 using ClassLibrary1;
 using ClassLibrary1.Entities;
@@ -11,6 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>();
 
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
