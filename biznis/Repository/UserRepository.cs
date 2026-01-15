@@ -15,7 +15,13 @@ namespace biznis.Repository
         private readonly AppDbContext _context;
         public UserRepository(AppDbContext context) : base(context)
         {
+            _context = context;
 
+        }
+        public Task<bool> LoginAsync(string name, string password)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
+            return Task.FromResult(user != null);
         }
     }
 }

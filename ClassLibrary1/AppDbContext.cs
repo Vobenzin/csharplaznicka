@@ -7,10 +7,19 @@ namespace ClassLibrary1
     public class AppDbContext : DbContext
     {
         public DbSet<UserEntity> Users { get; set; }
-        public DbSet<BookEntity> Books { get; set; }
+        public DbSet<ProductEntity> Products { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=app.db");
+            if (!optionsBuilder.IsConfigured)
+            {
+                var basePath = Path.GetFullPath(
+                    Path.Combine(AppContext.BaseDirectory, @"..\..\..\..\ClassLibrary1")
+                    );
+                var dbPath = Path.Combine(basePath, "appdata.db");
+
+                optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            }
+                
         }
     }
 }

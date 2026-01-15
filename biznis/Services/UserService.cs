@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using WebApplication1.Models;
+using Common.DTO;
 
 namespace biznis.Services
 {
@@ -24,13 +24,14 @@ namespace biznis.Services
         }
 
 
-        public async Task<bool> CreateAsync(string name, string email)
+        public async Task<bool> CreateAsync(string name, string email, string password)
         {
             var userEntity = new UserEntity()
             {
                 PublicId = Guid.NewGuid(),
                 Name = name,
-                Email = email
+                Email = email,
+                Password = password
             };
             await _userRepository.CreateAsync(userEntity);
             await _userRepository.SaveChangesAsync();
@@ -50,14 +51,14 @@ namespace biznis.Services
             return true;
         }
 
-        public async Task<List<User>> GetAllAsync()
+        public async Task<List<UserDTO>> GetAllAsync()
         {
             var userList = await _userRepository.GetAllAsync();
-            var userModelList = new List<User>();
+            var userModelList = new List<UserDTO>();
 
             foreach (var user in userList)
             {
-                var userModel = new User()
+                var userModel = new UserDTO()
                 {
                     PublicId = user.PublicId,
                     Name = user.Name,
@@ -91,7 +92,7 @@ namespace biznis.Services
             {
                 user.Email = email;
             }
-            await _userRepository.UpdateAsync(user);
+            await _userRepository.Update(user);
             await _userRepository.SaveChangesAsync();
             return true;
         }

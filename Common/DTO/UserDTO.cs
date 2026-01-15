@@ -1,6 +1,8 @@
-namespace WebApplication1.Models
+using Common.Enum;
+
+namespace Common.DTO
 {
-    public class User
+    public class UserDTO
     {
         //public required string Name { get; set; }
         //public required string Surname { get; set; }
@@ -23,5 +25,9 @@ namespace WebApplication1.Models
         public Guid PublicId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public RoleEnum Role { get; set; }
     }
 }

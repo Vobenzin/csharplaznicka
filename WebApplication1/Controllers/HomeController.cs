@@ -57,10 +57,10 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromForm] string name, [FromForm] string email)
+        public async Task<IActionResult> CreateUser([FromForm] string name, [FromForm] string email, [FromForm] string password)
         { 
 
-            await _userService.CreateAsync(name, email);
+            await _userService.CreateAsync(name, email, password);
             return RedirectToAction("User");
         }
 

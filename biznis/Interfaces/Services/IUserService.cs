@@ -10,9 +10,9 @@ namespace biznis.Interfaces.Services
 {
     public interface IUserService
     {
-        Task<List<WebApplication1.Models.User>> GetAllAsync();
+        Task<List<Common.DTO.UserDTO>> GetAllAsync();
         Task<UserEntity> GetByPublicIdAsync(Guid publicId);
-        Task<bool> CreateAsync(string name, string email);
+        Task<bool> CreateAsync(string name, string email, string password);
         Task<bool> UpdateAsync(Guid publicId, string name, string email);
         Task<bool> DeleteAsync(Guid publicId);
 

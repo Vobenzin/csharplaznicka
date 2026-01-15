@@ -35,6 +35,11 @@ namespace biznis.Repository
             return await _context.Set<TEntity>().ToListAsync();
         }
 
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
+        }
+
         public async Task<TEntity?> GetByPublicIdAsync(Guid publicId)
         {
             return await _context.Set<TEntity>().FirstOrDefaultAsync(e => e.PublicId == publicId);
@@ -45,7 +50,7 @@ namespace biznis.Repository
             return await _context.SaveChangesAsync();
         }
 
-        public Task<bool> UpdateAsync(TEntity entity)
+        public Task<bool> Update(TEntity entity)
         {
             _context.Update(entity);
             return Task.FromResult(true);
