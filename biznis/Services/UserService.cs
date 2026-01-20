@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Common.DTO;
+using Common.Enum;
 
 namespace biznis.Services
 {
@@ -32,6 +33,20 @@ namespace biznis.Services
                 Name = name,
                 Email = email,
                 Password = password
+            };
+            await _userRepository.CreateAsync(userEntity);
+            await _userRepository.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> CreateAdminAsync(string name, string email, string password)
+        {
+            var userEntity = new UserEntity()
+            {
+                PublicId = Guid.NewGuid(),
+                Name = name,
+                Email = email,
+                Password = password,
+                Role = RoleEnum.admin
             };
             await _userRepository.CreateAsync(userEntity);
             await _userRepository.SaveChangesAsync();
@@ -68,6 +83,11 @@ namespace biznis.Services
             }
 
             return userModelList;
+        }
+        public async Task<UserEntity?> AuthenticateAsync(string email, string password)
+        {
+            var user = await _userRepository.GetByCredentialsAsync(email, password);
+            return user;
         }
 
         public async Task<UserEntity?> GetByPublicIdAsync(Guid publicId)

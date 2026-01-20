@@ -23,5 +23,10 @@ namespace biznis.Repository
             var user = _context.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
             return Task.FromResult(user != null);
         }
+        
+        public async Task<UserEntity> GetByCredentialsAsync(string email, string password)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+        }
     }
 }

@@ -4,6 +4,7 @@ using biznis.Repository;
 using biznis.Services;
 using ClassLibrary1;
 using ClassLibrary1.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using WebApplication1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,16 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+builder.Services
+  .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+  .AddCookie(options =>
+  {
+      options.LoginPath = "/Home/Login";
+      options.AccessDeniedPath = "/Home/Forbidden";
+  });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -33,6 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -10,5 +10,7 @@ namespace biznis.Interfaces.Repository
     public interface IUserRepository : IBaseRepository<UserEntity>
     {
         Task<bool> LoginAsync(string name, string password);
+
+        Task<UserEntity> GetByCredentialsAsync(string email, string password);
     }
 }
