@@ -50,6 +50,23 @@
                                 <a class="nav-link" asp-controller="Home" asp-action="Login">Login</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Products</a>
+                        </li>
+
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
+                            </li>
+                        }
+
+                        @if (User?.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Product" asp-action="AdminIndex">Admin Products</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

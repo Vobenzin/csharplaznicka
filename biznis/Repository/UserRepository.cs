@@ -18,15 +18,10 @@ namespace biznis.Repository
             _context = context;
 
         }
-        public Task<bool> LoginAsync(string name, string password)
+
+        public Task<UserEntity?> GetByCredentialsAsync(string email, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
-            return Task.FromResult(user != null);
-        }
-        
-        public async Task<UserEntity> GetByCredentialsAsync(string email, string password)
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            return _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
         }
     }
 }

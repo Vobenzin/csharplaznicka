@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace biznis.Interfaces.Repository
 {
-    public interface IUserRepository : IBaseRepository<UserEntity>
+    public interface ICartRepository : IBaseRepository<CartEntity>
     {
-        Task<UserEntity?> GetByCredentialsAsync(string email, string password);
-
+        Task<CartEntity?> GetByUserIdAsync(long userId);
+        Task<CartEntity?> GetByUserIdWithItemsAsync(long userId);
     }
 }

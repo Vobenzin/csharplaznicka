@@ -8,6 +8,8 @@ namespace ClassLibrary1
     {
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
+
+        public DbSet<CartEntity> Carts { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

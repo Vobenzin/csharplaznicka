@@ -1,0 +1,38 @@
+﻿@using Common.DTO
+@model IEnumerable<ProductListDTO>
+
+<h1>Products</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Platform</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Category</td>
+                <td>@p.Platform</td>
+                <td>@p.Price</td>
+                <td>@p.StockAmount</td>
+                <td>
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="d-flex gap-2">
+                        <input type="hidden" name="productPublicId" value="@p.PublicId" />
+                        <input name="amount" type="number" min="1" value="1" style="width:90px;" />
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary">Go to cart</a>
