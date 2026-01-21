@@ -10,10 +10,10 @@ namespace ClassLibrary1.Entities
     {
 
         public long CartId { get; set; }
-        public CartEntity? Cart { get; set; }
+        public CartEntity Cart { get; set; } = null!;
 
         public long ProductId { get; set; }
-        public ProductEntity? Product { get; set; }
+        public ProductEntity Product { get; set; } = null!;
 
         public int Amount { get; set; }
     }

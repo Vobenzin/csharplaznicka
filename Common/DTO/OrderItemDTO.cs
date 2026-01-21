@@ -4,17 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Entities
+namespace Common.DTO
 {
-    public class OrderItemEntity : BaseEntity
+    public class OrderItemDTO
     {
-
-        public long OrderId { get; set; }
-        public OrderEntity? Order { get; set; }
-
-        public long ProductId { get; set; }
         public string ProductName { get; set; } = "";
         public decimal UnitPrice { get; set; }
         public int Amount { get; set; }
+
+        public decimal Subtotal => UnitPrice * Amount;
     }
 }

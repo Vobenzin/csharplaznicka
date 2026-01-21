@@ -3,13 +3,12 @@
 @model ProductUpsertDTO
 
 @{
-    ViewData["Title"] = "Edit product";
-    var publicId = (Guid)ViewBag.PublicId;
+    ViewData["Title"] = "Create product";
 }
 
-<h1>Edit product</h1>
+<h1>Create product</h1>
 
-<form asp-action="Edit" asp-route-publicId="@publicId" method="post">
+<form asp-action="Create" method="post">
     <div class="mb-3">
         <label asp-for="Name" class="form-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -44,7 +43,6 @@
         <textarea asp-for="Description" class="form-control" rows="4"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">Create</button>
     <a asp-action="AdminIndex" class="btn btn-secondary">Back</a>
 </form>
-

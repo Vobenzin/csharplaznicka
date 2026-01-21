@@ -27,11 +27,12 @@ namespace WebApplication1.Controllers
             return View(cart);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Add(Guid productPublicId, int amount)
         {
             await _cartService.AddToCartAsync(GetUserId(), productPublicId, amount);
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("Index", "Cart");
         }
 
         [HttpPost]

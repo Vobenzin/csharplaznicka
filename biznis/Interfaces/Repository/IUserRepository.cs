@@ -11,5 +11,7 @@ namespace biznis.Interfaces.Repository
     {
         Task<UserEntity?> GetByCredentialsAsync(string email, string password);
 
+        Task<UserEntity?> GetByEmailAsync(string email);
+
     }
 }

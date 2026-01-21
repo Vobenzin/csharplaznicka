@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
             UserEntity user = new UserEntity();
             db = context;
             _userService = userService;
-            _userService.CreateAdminAsync("admin", "admin@admin.com", "123");
+            
         }
 
 

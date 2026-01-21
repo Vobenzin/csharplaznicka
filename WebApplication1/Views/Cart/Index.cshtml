@@ -49,4 +49,10 @@ else
     <form asp-controller="Cart" asp-action="Clear" method="post">
         <button type="submit" class="btn btn-outline-danger">Clear cart</button>
     </form>
+
+    <form asp-controller="Order" asp-action="Checkout" method="post">
+        <button type="submit" class="btn btn-success">Checkout</button>
+    </form>
+
+    <a asp-controller="Order" asp-action="History" class="btn btn-outline-secondary">Purchase history</a>
 }

@@ -22,6 +22,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartService, CartService>();
 
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
 builder.Services
@@ -59,6 +61,24 @@ app.MapControllerRoute(
 using (var db = new AppDbContext())
 {
     db.Database.EnsureCreated();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var userService = scope.ServiceProvider.GetRequiredService<IUserService>();
+
+    var adminEmail = "admin@admin.com";
+
+    // You need a method to check existence by email.
+    // E.g. IUserService.GetByEmailAsync or IUserRepository.GetByEmailAsync.
+    var existing = await scope.ServiceProvider
+        .GetRequiredService<IUserRepository>()
+        .GetByEmailAsync(adminEmail);
+
+    if (existing == null)
+    {
+        await userService.CreateAdminAsync("admin", adminEmail, "123");
+    }
 }
 
 app.Run();

@@ -23,11 +23,11 @@
                 <td>@p.Platform</td>
                 <td>@p.Price</td>
                 <td>@p.StockAmount</td>
-                <td>
-                    <form asp-controller="Cart" asp-action="Add" method="post" class="d-flex gap-2">
+                <td class="text-end">
+                    <form asp-controller="Cart" asp-action="Add" method="post" class="d-inline-flex gap-2">
                         <input type="hidden" name="productPublicId" value="@p.PublicId" />
                         <input name="amount" type="number" min="1" value="1" style="width:90px;" />
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn ">Add</button>
                     </form>
                 </td>
             </tr>

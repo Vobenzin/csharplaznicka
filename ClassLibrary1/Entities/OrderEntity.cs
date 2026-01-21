@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Entities
 {
-    public class OrderEntity
+    public class OrderEntity : BaseEntity
     {
-        public long Id { get; set; }
-        public Guid PublicId { get; set; } = Guid.NewGuid();
 
         public long UserId { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;

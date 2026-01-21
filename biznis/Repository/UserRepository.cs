@@ -19,6 +19,9 @@ namespace biznis.Repository
 
         }
 
+        public Task<UserEntity?> GetByEmailAsync(string email)
+        => _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
         public Task<UserEntity?> GetByCredentialsAsync(string email, string password)
         {
             return _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
