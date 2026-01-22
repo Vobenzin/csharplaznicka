@@ -12,7 +12,7 @@ namespace ClassLibrary1.Entities
         public long UserId { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
 
-        public decimal TotalPrice { get; set; } // snapshot total at purchase time
+        public decimal TotalPrice { get; set; }
         public List<OrderItemEntity> Items { get; set; } = new();
     }
 }

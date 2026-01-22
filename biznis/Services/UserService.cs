@@ -39,7 +39,7 @@ namespace biznis.Services
                 Name = name,
                 Email = email,
                 Password = password,
-                Role = RoleEnum.admin // match your enum casing
+                Role = RoleEnum.admin
             };
 
             await _userRepository.AddAsync(userEntity);

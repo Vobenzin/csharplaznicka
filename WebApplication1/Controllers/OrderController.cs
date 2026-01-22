@@ -20,7 +20,7 @@ public class OrderController : Controller
     public async Task<IActionResult> Checkout()
     {
         var result = await _orderService.CheckoutAsync(GetUserId());
-        return RedirectToAction(nameof(Detail), new { publicId = result.OrderPublicId }); // PRG style [web:513]
+        return RedirectToAction(nameof(Detail), new { publicId = result.OrderPublicId });
     }
 
     public async Task<IActionResult> History()

@@ -9,7 +9,7 @@ namespace biznis.Services
 {
     public class OrderService : IOrderService
     {
-        private readonly AppDbContext _context; // easiest for multi-entity transaction
+        private readonly AppDbContext _context;
 
         public OrderService(AppDbContext context)
         {
@@ -18,7 +18,6 @@ namespace biznis.Services
 
         public async Task<CheckoutResultDTO> CheckoutAsync(long userId)
         {
-            // load cart + items + product
             var cart = await _context.Carts
                 .Include(c => c.Items)
                 .ThenInclude(i => i.Product)
@@ -27,7 +26,6 @@ namespace biznis.Services
             if (cart == null || cart.Items.Count == 0)
                 throw new Exception("Cart is empty.");
 
-            // validate stock
             foreach (var item in cart.Items)
             {
                 if (item.Product == null)
@@ -38,7 +36,6 @@ namespace biznis.Services
                     throw new Exception($"Not enough stock for {item.Product.Name}.");
             }
 
-            // create order + snapshot items
             var order = new OrderEntity
             {
                 PublicId = Guid.NewGuid(),
@@ -52,7 +49,6 @@ namespace biznis.Services
             {
                 var p = item.Product!;
 
-                // reduce stock
                 p.Amount -= item.Amount;
 
                 var oi = new OrderItemEntity
@@ -70,12 +66,12 @@ namespace biznis.Services
 
             order.TotalPrice = total;
 
-            // clear cart
+
             _context.CartItems.RemoveRange(cart.Items);
 
-            // save all at once (transaction by default)
+
             _context.Orders.Add(order);
-            await _context.SaveChangesAsync(); // atomic with supported providers [web:509]
+            await _context.SaveChangesAsync(); 
 
             return new CheckoutResultDTO
             {

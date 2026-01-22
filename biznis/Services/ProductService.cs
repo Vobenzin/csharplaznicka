@@ -8,6 +8,7 @@ using biznis.Interfaces.Services;
 using biznis.Repository;
 using ClassLibrary1.Entities;
 using Common.DTO;
+using Common.Enum;
 
 namespace biznis.Services
 {
@@ -33,6 +34,17 @@ namespace biznis.Services
                 Platform = p.Platform,
                 StockAmount = p.Amount
             }).ToList();
+        }
+
+        public async Task<HelperProductListDTO> GetHelperAsync(List<ProductListDTO> products, CategoryEnum cat, PlatformEnum plat)
+        {
+            return new HelperProductListDTO
+            {
+                Category = cat,
+                Platform = plat,
+                enumProductListDTO = products
+
+            };
         }
 
         public async Task<ProductDTO?> GetByPublicIdAsync(Guid publicId)

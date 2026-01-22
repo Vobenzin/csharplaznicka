@@ -69,8 +69,6 @@ using (var scope = app.Services.CreateScope())
 
     var adminEmail = "admin@admin.com";
 
-    // You need a method to check existence by email.
-    // E.g. IUserService.GetByEmailAsync or IUserRepository.GetByEmailAsync.
     var existing = await scope.ServiceProvider
         .GetRequiredService<IUserRepository>()
         .GetByEmailAsync(adminEmail);

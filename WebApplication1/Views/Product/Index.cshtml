@@ -1,8 +1,26 @@
 ﻿@using Common.DTO
-@model IEnumerable<ProductListDTO>
+@using Common.Enum
+@model HelperProductListDTO
+
 
 <h1>Products</h1>
 
+
+
+<form asp-controller="Product" asp-action="Filter" method="post" class="d-inline-flex gap-2">
+
+    <label asp-for="Category" class="form-label"></label>
+    <select asp-for="Category" name="category" id="cat-type" class="form-select"
+            asp-items="Html.GetEnumSelectList<CategoryEnum>()" onchange="@Model.Category = ">
+    </select>
+    <label asp-for = "Platform" class="form-label"></label>
+    <select asp-for="Platform" name="platform" class="form-select"
+            asp-items="Html.GetEnumSelectList<PlatformEnum>()">
+    </select>
+
+
+    <button type="submit" class="btn ">Update</button>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -15,11 +33,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var p in Model)
+        @foreach (var p in Model.enumProductListDTO)
         {
+			if ((p.Platform != Model.Platform) ||
+			( p.Category != Model.Category))
+			{
+				continue;
+			}
             <tr>
-                <td>@p.Name</td>
-                <td>@p.Category</td>
+                <td>@p.Name </td>
+                <td>@p.Category </td>
                 <td>@p.Platform</td>
                 <td>@p.Price</td>
                 <td>@p.StockAmount</td>
@@ -35,4 +58,5 @@
     </tbody>
 </table>
 
-<a asp-controller="Cart" asp-action="Index" class="btn btn-outline-secondary">Go to cart</a>
+<a asp-controller="Cart" asp-action="Index" class="btn">Go to cart</a>
+

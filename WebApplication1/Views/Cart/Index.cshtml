@@ -29,14 +29,14 @@ else
                         <form asp-controller="Cart" asp-action="Update" method="post" class="d-flex gap-2">
                             <input type="hidden" name="cartItemPublicId" value="@i.PublicId" />
                             <input name="amount" type="number" min="0" value="@i.Amount" style="width:90px;" />
-                            <button type="submit" class="btn btn-warning btn-sm">Update</button>
+                            <button type="submit" class="btn">Update</button>
                         </form>
                     </td>
                     <td>@i.Subtotal</td>
                     <td>
                         <form asp-controller="Cart" asp-action="Remove" method="post">
                             <input type="hidden" name="cartItemPublicId" value="@i.PublicId" />
-                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            <button type="submit" class="btn">Remove</button>
                         </form>
                     </td>
                 </tr>
@@ -47,12 +47,10 @@ else
     <p><b>Total:</b> @Model.TotalPrice</p>
 
     <form asp-controller="Cart" asp-action="Clear" method="post">
-        <button type="submit" class="btn btn-outline-danger">Clear cart</button>
+        <button type="submit" class="btn">Clear cart</button>
     </form>
 
     <form asp-controller="Order" asp-action="Checkout" method="post">
-        <button type="submit" class="btn btn-success">Checkout</button>
+        <button type="submit" class="btn">Checkout</button>
     </form>
-
-    <a asp-controller="Order" asp-action="History" class="btn btn-outline-secondary">Purchase history</a>
 }

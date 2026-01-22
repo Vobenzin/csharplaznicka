@@ -1,5 +1,6 @@
 ﻿using ClassLibrary1.Entities;
 using Common.DTO;
+using Common.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace biznis.Interfaces.Services
     public interface IProductService
     {
         Task<List<ProductListDTO>> GetAllAsync();
+
+        Task<HelperProductListDTO> GetHelperAsync(List<ProductListDTO> products, CategoryEnum cat, PlatformEnum plat);
+
         Task<ProductDTO?> GetByPublicIdAsync(Guid publicId);
 
         Task<bool> CreateAsync(ProductUpsertDTO dto);

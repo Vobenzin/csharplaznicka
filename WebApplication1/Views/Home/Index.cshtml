@@ -3,6 +3,18 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Gaming-Eshopis</h1>
+    <p>
+        No account?
+        <a asp-action="Register" asp-controller="Home">Register</a>
+    </p>
+    <p>
+        Already has account?
+        <a asp-action="Login" asp-controller="Home">Login</a>
+    </p>
+
+    <p>
+        See our best products?
+        <a asp-action="Index" asp-controller="Product">Show Products</a>
+    </p>
 </div>

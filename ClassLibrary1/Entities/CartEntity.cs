@@ -9,7 +9,7 @@ namespace ClassLibrary1.Entities
     public class CartEntity : BaseEntity
     {
 
-        public long UserId { get; set; }  // FK to your UserEntity.Id
+        public long UserId { get; set; }
         public List<CartItemEntity> Items { get; set; } = new();
     }
 }

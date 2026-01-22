@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication1.Models;
 using Microsoft.AspNetCore.Authorization;
+using Common.Enum;
 
 namespace WebApplication1.Controllers
 {
@@ -20,13 +21,15 @@ namespace WebApplication1.Controllers
         private readonly IUserService _userService;
 
 
+
         public HomeController(ILogger<HomeController> logger, AppDbContext context, IUserService userService)
         {
             _logger = logger;
             UserEntity user = new UserEntity();
             db = context;
             _userService = userService;
-            
+
+
         }
 
 
@@ -121,7 +124,7 @@ namespace WebApplication1.Controllers
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Name, user.Email),
-                    new Claim(ClaimTypes.Role, user.Role.ToString()) // "Admin" or "User"
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
                     
                 };
 
