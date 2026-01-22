@@ -1,0 +1,39 @@
+﻿@using ClassLibrary1.Entities
+@model UserEntity
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<form asp-action="Register" asp-controller="Home" method="post">
+    <label for="name">Name:</label>
+    <br />
+    <input id="name" name="name" />
+
+    <br />
+    <br />
+
+    <label for="email">Email:</label>
+    <br />
+    <input id="email" name="email" type="email" />
+
+    <br />
+    <br />
+
+    <label for="password">Password:</label>
+    <br />
+    <input id="password" name="password" type="password" />
+
+    <br />
+    <br />
+
+    <button type="submit">Register</button>
+</form>
+
+<p>
+    Already have an account?
+    <a asp-action="Login" asp-controller="Home">Login</a>
+</p>
+

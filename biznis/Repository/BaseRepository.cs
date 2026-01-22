@@ -12,48 +12,23 @@ namespace biznis.Repository
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
+        protected DbSet<TEntity> Set => _context.Set<TEntity>();
 
-        public BaseRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+        public BaseRepository(AppDbContext context) => _context = context;
 
-        public virtual async Task<bool> CreateAsync(TEntity entity)
-        {
-            await _context.AddAsync(entity);
-            return true;
-        }
+        public Task<TEntity?> GetByIdAsync(long id) =>
+            Set.FirstOrDefaultAsync(e => e.Id == id);
 
-        public void Delete(TEntity entity)
-        {
-            _context.Remove(entity);
-        }
+        public Task<TEntity?> GetByPublicIdAsync(Guid publicId) =>
+            Set.FirstOrDefaultAsync(e => e.PublicId == publicId);
 
-        public async Task<List<TEntity>> GetAllAsync()
-        {
-            return await _context.Set<TEntity>().ToListAsync();
-        }
+        public Task<List<TEntity>> GetAllAsync() => Set.ToListAsync();
 
-        public async Task<TEntity> GetByIdAsync(int id)
-        {
-            return await _context.Set<TEntity>().FirstOrDefaultAsync(e => e.Id == id);
-        }
+        public Task AddAsync(TEntity entity) => Set.AddAsync(entity).AsTask();
+        public void Update(TEntity entity) => Set.Update(entity);
+        public void Delete(TEntity entity) => Set.Remove(entity);
 
-        public async Task<TEntity?> GetByPublicIdAsync(Guid publicId)
-        {
-            return await _context.Set<TEntity>().FirstOrDefaultAsync(e => e.PublicId == publicId);
-        }
-
-        public async Task<int> SaveChangesAsync()
-        {
-            return await _context.SaveChangesAsync();
-        }
-
-        public Task<bool> Update(TEntity entity)
-        {
-            _context.Update(entity);
-            return Task.FromResult(true);
-        }
+        public Task<int> SaveChangesAsync() => _context.SaveChangesAsync();
     }
 }

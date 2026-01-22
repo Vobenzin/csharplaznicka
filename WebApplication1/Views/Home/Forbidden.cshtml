@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Access denied";
+}
+@using System.Security.Claims
+<h1>Access denied</h1>
+<p>You don’t have permission to view this page.</p>
+<a asp-action="Index" asp-controller="Home">Go home</a>
+
+
+
+<p>Email/Name: @User.Identity?.Name</p>
+<p>IsAuthenticated: @User.Identity?.IsAuthenticated</p>
+
+<ul>
+    @foreach (var c in User.Claims)
+    {
+        <li>@c.Type = @c.Value</li>
+    }
+</ul>
+
+<p>Role claims:</p>
+<ul>
+    @foreach (var r in User.FindAll(ClaimTypes.Role))
+    {
+        <li>@r.Value</li>
+    }
+</ul>

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Entities
+namespace Common.DTO
 {
-    public class BaseEntity
+    public class OrderListDTO
     {
-        public long  Id { get; set; }
         public Guid PublicId { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }

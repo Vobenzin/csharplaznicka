@@ -1,0 +1,31 @@
+﻿@using Common.DTO
+@model OrderDetailDTO
+
+<h1>Order detail</h1>
+
+<p><b>Date:</b> @Model.CreatedAtUtc</p>
+<p><b>Total:</b> @Model.TotalPrice</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Unit price</th>
+            <th>Amount</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model.Items)
+        {
+            <tr>
+                <td>@i.ProductName</td>
+                <td>@i.UnitPrice</td>
+                <td>@i.Amount</td>
+                <td>@i.Subtotal</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="History" class="btn btn-secondary">Back</a>

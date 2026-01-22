@@ -8,6 +8,13 @@ namespace ClassLibrary1
     {
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
+
+        public DbSet<CartEntity> Carts { get; set; }
+        public DbSet<CartItemEntity> CartItems { get; set; }
+
+        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<OrderItemEntity> OrderItems { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -20,6 +27,20 @@ namespace ClassLibrary1
                 optionsBuilder.UseSqlite($"Data Source={dbPath}");
             }
                 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CartItemEntity>()
+                .HasOne(ci => ci.Cart)
+                .WithMany(c => c.Items)
+                .HasForeignKey(ci => ci.CartId);
+
+            modelBuilder.Entity<CartItemEntity>()
+                .HasOne(ci => ci.Product)
+                .WithMany() 
+                .HasForeignKey(ci => ci.ProductId);
         }
     }
 }

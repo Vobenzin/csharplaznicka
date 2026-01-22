@@ -5,18 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Entities
+namespace Common.DTO
 {
-    public class ProductEntity : BaseEntity
+    public class ProductListDTO
     {
-
+        public Guid PublicId { get; set; }
         public string Name { get; set; } = "";
         public decimal Price { get; set; }
         public CategoryEnum Category { get; set; }
         public PlatformEnum Platform { get; set; }
-
-        public int Amount { get; set; } 
-        public string Description { get; set; } = "";
+        public int StockAmount { get; set; }
     }
-
 }

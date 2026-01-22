@@ -12,7 +12,10 @@ namespace biznis.Interfaces.Services
     {
         Task<List<Common.DTO.UserDTO>> GetAllAsync();
         Task<UserEntity> GetByPublicIdAsync(Guid publicId);
+
+        Task<UserEntity?> AuthenticateAsync(string email, string password);
         Task<bool> CreateAsync(string name, string email, string password);
+        Task<bool> CreateAdminAsync(string name, string email, string password);
         Task<bool> UpdateAsync(Guid publicId, string name, string email);
         Task<bool> DeleteAsync(Guid publicId);
 

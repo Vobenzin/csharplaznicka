@@ -1,0 +1,45 @@
+﻿@using Common.DTO
+@model IEnumerable<ProductListDTO>
+
+@{
+    ViewData["Title"] = "Products (Admin)";
+}
+
+<h1>Products (Admin)</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">New product</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Platform</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th style="width:220px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Category</td>
+                <td>@p.Platform</td>
+                <td>@p.Price</td>
+                <td>@p.StockAmount</td>
+                <td class="d-flex gap-2">
+                    <a asp-action="Edit" asp-route-publicId="@p.PublicId" class="btn btn-warning btn-sm">Edit</a>
+
+                    <form asp-action="Delete" method="post" class="m-0">
+                        <input type="hidden" name="publicId" value="@p.PublicId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

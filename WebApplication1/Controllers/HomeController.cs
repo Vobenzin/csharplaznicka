@@ -1,11 +1,15 @@
 using biznis.Interfaces.Services;
 using ClassLibrary1;
 using ClassLibrary1.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication1.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication1.Controllers
 {
@@ -22,6 +26,7 @@ namespace WebApplication1.Controllers
             UserEntity user = new UserEntity();
             db = context;
             _userService = userService;
+            
         }
 
 
@@ -41,6 +46,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> EditForm([FromForm] Guid userPublicId)
         {
@@ -48,7 +54,7 @@ namespace WebApplication1.Controllers
             return View(user);
         }
 
-
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> User()
         {
             var userList = await _userService.GetAllAsync();
@@ -64,7 +70,7 @@ namespace WebApplication1.Controllers
             return RedirectToAction("User");
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Delete(Guid userPublicId)
         {
@@ -87,6 +93,54 @@ namespace WebApplication1.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Login() => View();
+        public IActionResult Register() => View();
+
+        public IActionResult Forbidden() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> Register([FromForm] string name, [FromForm] string email, [FromForm] string password)
+        {
+            await _userService.CreateAsync(name, email, password);
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login([FromForm] string email, [FromForm] string password)
+        {
+            var user = await _userService.AuthenticateAsync(email, password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid login.");
+                return View();
+            }
+
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.Role, user.Role.ToString()) // "Admin" or "User"
+                    
+                };
+
+            var identity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity));
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index");
         }
     }
 }
