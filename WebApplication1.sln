@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "biznis", "biznis\biznis.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{5DA63367-C0A1-4C78-A88A-4052083BD3C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactAPI", "ReactAPI\ReactAPI.csproj", "{B684E8FB-CD81-460D-B851-7858189F1F7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5DA63367-C0A1-4C78-A88A-4052083BD3C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DA63367-C0A1-4C78-A88A-4052083BD3C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DA63367-C0A1-4C78-A88A-4052083BD3C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B684E8FB-CD81-460D-B851-7858189F1F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B684E8FB-CD81-460D-B851-7858189F1F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B684E8FB-CD81-460D-B851-7858189F1F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B684E8FB-CD81-460D-B851-7858189F1F7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
