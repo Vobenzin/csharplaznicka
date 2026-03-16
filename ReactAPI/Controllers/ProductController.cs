@@ -9,12 +9,10 @@ namespace ReactAPI.Controllers
     [ApiController]
     public class ProductController : Controller
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<ProductController> _logger;
         private readonly IProductService _productService;
 
-
-        //public List<User> UserList { get; set; } = new List<User>();
-        public ProductController(ILogger<UserController> logger, IProductService productService)
+        public ProductController(ILogger<ProductController> logger, IProductService productService)
         {
             _logger = logger;
             _productService = productService;
@@ -24,6 +22,34 @@ namespace ReactAPI.Controllers
         {
             var productList = await _productService.GetAllAsync();
             return productList;
+        }
+
+        [HttpGet(Name = "GetProductById")]
+        public async Task<ProductDTO> GetByPublicId(Guid publicId)
+        {
+            var productList = await _productService.GetByPublicIdAsync(publicId);
+            return productList;
+        }
+
+        [HttpPost(Name = "CreateProduct")]
+        public async Task<Boolean> Create(ProductUpsertDTO dto)
+        {
+            var action_bool = await _productService.CreateAsync(dto);
+            return action_bool;
+        }
+
+        [HttpPut(Name = "UpdateProduct")]
+        public async Task<Boolean> Update(Guid publicId, ProductUpsertDTO dto)
+        {
+            var action_bool = await _productService.UpdateAsync(publicId, dto);
+            return action_bool;
+        }
+
+        [HttpDelete(Name = "DeleteProduct")]
+        public async Task<Boolean> Delete(Guid publicId)
+        {
+            var action_bool = await _productService.DeleteAsync(publicId);
+            return action_bool;
         }
 
     }

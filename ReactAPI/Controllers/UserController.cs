@@ -26,17 +26,32 @@ namespace ReactAPI.Controllers
             return userList;
         }
 
-        [HttpGet(Name = "Get_user")]
-        public async Task<List<UserDTO>> GetUser(Guid publicId)
+        [HttpGet(Name = " Get_by_public_id_user")]
+        public async Task<UserEntity> GetByPublicIdAsync(Guid publicId)
         {
-            var userList = await _userService.GetAllAsync();
+            var userList = await _userService.GetByPublicIdAsync(publicId);
             return userList;
         }
+
+        [HttpGet(Name = "AuthenticateUser")]
+        public async Task<UserEntity> Authenticate(string email, string password)
+        {
+            var userList = await _userService.AuthenticateAsync(email, password);
+            return userList;
+        }
+
 
         [HttpPost(Name = "Add_user")]
         public async Task<bool> Add(string name, string email, string password)
         {
             var userList = await _userService.CreateAsync(name, email, password);
+            return true;
+        }
+
+        [HttpPost(Name = "Add_Admin_user")]
+        public async Task<bool> AddAdmin(string name, string email, string password)
+        {
+            var userList = await _userService.CreateAdminAsync(name, email, password);
             return true;
         }
 
@@ -48,25 +63,12 @@ namespace ReactAPI.Controllers
             return userList;
         }
 
-        [HttpGet(Name = " Get_by_public_id_user")]
-        public async Task<UserEntity> GetByPublicIdAsync(Guid publicId)
-        {
-            var userList = await _userService.GetByPublicIdAsync(publicId);
-            return userList;
-        }
 
         
         [HttpPut(Name = "UpdateUser")]
         public async Task<bool> Update(Guid publicId, string name, string email)
         {
             var userList = await _userService.UpdateAsync(publicId, name, email);
-            return userList;
-        }
-
-        [HttpGet(Name = "AuthenticateUser")]
-        public async Task<UserEntity> Authenticate(string email, string password)
-        {
-            var userList = await _userService.AuthenticateAsync(email, password);
             return userList;
         }
 
