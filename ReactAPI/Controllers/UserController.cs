@@ -33,18 +33,18 @@ namespace ReactAPI.Controllers
             return userList;
         }
 
-        [HttpGet(Name = "AuthenticateUser")]
-        public async Task<UserEntity> Authenticate(string email, string password)
+        [HttpPost(Name = "AuthenticateUser")]
+        public async Task<UserEntity> Authenticate(UserAuthDTO user)
         {
-            var userList = await _userService.AuthenticateAsync(email, password);
+            var userList = await _userService.AuthenticateAsync(user.Email, user.Password);
             return userList;
         }
 
 
         [HttpPost(Name = "Add_user")]
-        public async Task<bool> Add(string name, string email, string password)
+        public async Task<bool> Add(UserRegisterDTO user)
         {
-            var userList = await _userService.CreateAsync(name, email, password);
+            var userList = await _userService.CreateAsync(user.Name, user.Email, user.Password);
             return true;
         }
 
